@@ -1,9 +1,11 @@
 import Flight.Flight;
+import Person.Passenger;
 import Person.Staff.CabinCrew;
 import Person.Staff.Pilot;
 import Person.Staff.Rank;
 import Plane.Plane;
 import Plane.PlaneType;
+import com.sun.org.apache.xml.internal.resolver.readers.OASISXMLCatalogReader;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,18 +17,28 @@ import java.util.Date;
 
 public class FlightTest {
 
-    private Flight flight;
+    Flight flight;
+    Pilot pilot1;
+    Pilot pilot2;
+    CabinCrew cabinCrew1;
+    CabinCrew cabinCrew2;
+    Passenger passenger1;
+    Passenger passenger2;
+    Passenger passenger3;
+    Passenger passenger4;
 
     @Before
     public void before(){
-        ArrayList<Pilot> pilots = new ArrayList<>();
-        pilots.add(new Pilot("Chris", Rank.CAPTAIN, "CJS9932"));
-        pilots.add(new Pilot("Hannah", Rank.FIRST_OFFICER, "HSS6765"));
-        ArrayList<CabinCrew> cabinCrews = new ArrayList<>();
-        cabinCrews.add(new CabinCrew("Diana", Rank.FLIGHT_ATTENDANT));
-        cabinCrews.add(new CabinCrew("Tom", Rank.FLIGHT_ATTENDANT));
+        pilot1 = new Pilot("Chris", Rank.CAPTAIN, "CJS9932");
+        pilot2 = new Pilot("Hannah", Rank.FIRST_OFFICER, "HSS6765");
+        cabinCrew1 = new CabinCrew("Jess", Rank.FLIGHT_ATTENDANT);
+        cabinCrew2 = new CabinCrew("Adam", Rank.FLIGHT_ATTENDANT);
+        passenger1 = new Passenger("Bob", 3);
+        passenger2 = new Passenger("Josh", 1);
+        passenger3 = new Passenger("Joan", 2);
+        passenger4 = new Passenger("Tom", 2);
         Plane plane = new Plane(PlaneType.BOEING747, 279);
-        flight = new Flight(pilots, cabinCrews, plane, "NS7654", "Rhodes", "EDI", new Date(2022, 05, 02));
+        flight = new Flight(plane, "NS7654", "Rhodes", "EDI", new Date(2022, 05, 02));
     }
 
     @Test
@@ -38,4 +50,11 @@ public class FlightTest {
     public void hasCabinCrewMembers() {
         assertEquals(2, flight.getNumOfCabinCrew());
     }
+
+    @Test
+    public void hasEmptyListOfPassengers(){
+        assertEquals(0, flight.getNumOfPassengers());
+    }
+
+
 }
